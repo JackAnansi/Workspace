@@ -1,26 +1,27 @@
 def pairwiseScore(seqA, seqB): 
 
-	dashes = []		#used for the pipes between letters
-	score = 0		#keeps track of the score; +1 for match, +3 for consec. match
+	dashes = []		    #used for the pipes between letters
+	score = 0		    #keeps track of the score; +1 for match, +3 for   consec. match
 	consec = False		#tracks for consecutive matches
 	
 	for letter in range(len(seqA)):
 		
 		if seqA[letter] == seqB[letter]:
 			
-			if consec == True: score += 3
-			else: score += 1
-			consec = True
-			dashes.append("|")
+			if consec == True: score += 3   # +3 for consecutive
+			else: score += 1                # +1 for non-consecutive
+			consec = True                   # consec flag set to True
+			dashes.append("|")              # adds a linking pipe
 			
 		else: 
-			score -= 1
-			consec = False
-			dashes.append(" ")
+			score -= 1                      # -1 for dissimilar
+			consec = False                  # consec flag set to False
+			dashes.append(" ")              # adds a space
 	
-	answer = seqA + "\n" + ''.join(dashes) + "\n" + seqB + "\n" + "Score: " + "\n" + str(score)
+	answer = seqA + "\n" + ''.join(dashes) + "\n" + seqB + "\n" + "Score: " + " " + str(score) + " "
+	
 	return (answer)
 
-print (pairwiseScore('ATCG', 'ATCG'))
+print (pairwiseScore('ATTCGT', 'ATCTAT'))
 
-print (pairwiseScore('CATTCATCATGCAA', 'GATAAATCTGGTCT'))
+print (pairwiseScore('GATAAATCTGGTCT', 'CATTCATCATGCAA'))
