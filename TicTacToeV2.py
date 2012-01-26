@@ -58,7 +58,7 @@ def takeTurn(player, position):
             spaces[2][1] = letter
     elif position == 9:
             spaces[2][2] = letter
-    else: raise NameError ('Strange input')
+    else: raise NameError ('Main loop allowed bad input through')
 
 
 
@@ -71,10 +71,10 @@ def checkWin():
 	
     # horizontal win check
     for i in range(3):
-        if spaces[i] == ['X', 'X', 'X']: 
+        if spaces[i] == ['X', 'X', 'X']:    # if all 'X' in a row
             print ( "'X' wins (horizontal)." )
             return True
-        elif spaces[i] == ['O', 'O', 'O']:
+        elif spaces[i] == ['O', 'O', 'O']:  # if all 'O' in a row
             print ( "'O' wins (horizontal)." )
             return True
 	
@@ -84,25 +84,25 @@ def checkWin():
         for j in range(3):
             check += spaces[j][i]
 			
-        if check == "XXX":
+        if check == "XXX":                  # if all 'X' in a column
             print ( "'X' wins (vertical)." )
             return True
-        elif check == "OOO":
+        elif check == "OOO":                # if all 'O' in a column
             print ( "'O' wins (vertical)." )
             return True
 			
     # diagonal win check
     if spaces [0][0] == spaces [1][1] == spaces [2][2] == 'X':
-        print ( "'X' wins (diagonal)." )
-        return True
-    elif spaces [0][0] == spaces [1][1] == spaces [2][2] == 'O':
-        print ( "'O' wins (diagonal)." )
+        print ( "'X' wins (diagonal)." )    # \ win
         return True
     elif spaces [0][2] == spaces [1][1] == spaces [2][0] == 'X':
-        print ( "'X' wins (diagonal)." )
+        print ( "'X' wins (diagonal)." )    # / win
         return True
+    elif spaces [0][0] == spaces [1][1] == spaces [2][2] == 'O':
+        print ( "'O' wins (diagonal)." )    # \ win
+        return True 
     elif spaces [0][2] == spaces [1][1] == spaces [2][0] == 'O':
-        print ( "'O' wins (diagonal)." )
+        print ( "'O' wins (diagonal)." )    # / win
         return True
 
     # lost game check
