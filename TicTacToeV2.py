@@ -10,6 +10,7 @@ spaces = [[' ', ' ', ' '],[' ', ' ', ' '],[' ', ' ', ' ']]
 taken = set([])     # keeps track of which spaces are taken
 gameOver = False # game ending loop variable
 playerTurn = 1 # Player 1's turn; negative for Player 2
+NUMERALS = '0123456789abcdef'
 
 
 # drawBoard function draws the complete board
@@ -27,6 +28,26 @@ def drawBoard():
     print( spaces[2][0] + '|' + spaces[2][1] + '|' + spaces[2][2] )
 
 
+# arbitrary conversion function
+def arb(n, base=10):
+    """Converts an integer to a string for an arbitrary base (default base 10).
+
+    >>> arb(255, base=2)
+    '11111111'
+    >>> arb(255, base=16)
+    'ff'
+    """
+    assert base <= 16, "Cannot handle base greater than base 16"
+
+    d, m = divmod(n, base)
+    digits = [m]
+    while d:
+        d, m = divmod(d, base)
+        digits.append(m)
+
+    return ''.join(NUMERALS[c] for c in reversed(digits))
+
+
 
 # takeTurn function fills in an X or O
 def takeTurn(player, position):
@@ -40,24 +61,12 @@ def takeTurn(player, position):
     letter = 'O'
     if player == 1: letter = 'X'
 
-    if position == 1:
-            spaces[0][0] = letter
-    elif position == 2:
-            spaces[0][1] = letter
-    elif position == 3:
-            spaces[0][2] = letter
-    elif position == 4:
-            spaces[1][0] = letter
-    elif position == 5:
-            spaces[1][1] = letter
-    elif position == 6:
-            spaces[1][2] = letter
-    elif position == 7:
-            spaces[2][0] = letter
-    elif position == 8:
-            spaces[2][1] = letter
-    elif position == 9:
-            spaces[2][2] = letter
+    pos = arb(position-1, 3)
+
+    if len(pos) == 2:
+        spaces[int(pos[0])][int(pos[1])] = letter
+    elif len(pos) == 1:
+        spaces[0][int(pos[0])] = letter
     else: raise NameError ('Main loop allowed bad input through')
 
 
