@@ -49,8 +49,6 @@ def checkWin():
     '''The checkWin function tests the board for win conditions
     '''
 	
-    winner = 0		# positive for X, negative for O, or 0 for draw
-	
     # horizontal win check
     for i in range(3):
         if spaces[i] == ['X', 'X', 'X']:    # if all 'X' in a row
